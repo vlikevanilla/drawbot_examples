@@ -1,41 +1,27 @@
-CANVAS = 500
-SQUARESIZE = 158
-NUMSQUARES = 99
-SQUAREDIST = 3
-
-width = NUMSQUARES * SQUAREDIST
-
+#length of one square#
+SQUARE = 300
+#format#
+CANVAS = 600
+NUMSQUARE = 1
 NUMFRAMES = 50
-
-for frame in range(NUMFRAMES):
-    newPage(CANVAS, CANVAS)
-    frameDuration(1/25)
     
-    phase = 2 * pi * frame / NUMFRAMES
-    startAngle = 90 * sin(phase)
-    endAngle = 90 * sin(phase + 0.5 * pi)
-    print (sin(phase))
+def create_square(myrange):
+    for frame in myrange:
+        newPage(CANVAS, CANVAS)
+        frameDuration(1/15)
+        NUMSQUARE = frame + 1
+        print (frame)
 
-    translate(CANVAS/2 - width/2 , CANVAS/2)
+        for square in range(NUMSQUARE):
+            fill(1)
+            stroke(0)
+            rect((CANVAS/2)-(SQUARE/2),(CANVAS/2)-(SQUARE/2),SQUARE,SQUARE)
+            rotate((2), center=(CANVAS/2,CANVAS/2))
 
-    fill(1)
-    stroke(0)
-
-
-
-
-
-    for i in range(NUMSQUARES):
-    
-        f = i / NUMSQUARES
-    
-        save()
-        translate(i*SQUAREDIST)
-        scale(0.9, 1)
-        rotate(startAngle + f * (endAngle - startAngle))
-
-        rect(-SQUARESIZE/2, -SQUARESIZE/2, SQUARESIZE, SQUARESIZE)
-
-        restore()
+forward_range = range(NUMFRAMES)
+reverse_range = reversed(range(NUMFRAMES))
         
-saveImage("Animation2.gif")
+for rng in [forward_range, reverse_range]:
+    create_square(rng)
+
+saveImage("square.gif")
